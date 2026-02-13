@@ -1,0 +1,56 @@
+// CENVORA — SQLite (MVP). For production Postgres set DATABASE_URL and provider.
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id             String         @id @default(cuid())
+  sku            String         @unique
+  name           String
+  descriptionShort String
+  category       String         // FMCG, IndustrialSupplies, Packaging, Other
+  priceFrom      Float
+  unit           String         // "pcs", "kg", "box"
+  isActive       Boolean        @default(true)
+  orderItems     OrderItem[]
+}
+
+model Order {
+  id              String      @id @default(cuid())
+  orderNumber     String      @unique // ORD-YYYYMMDD-XXXX
+  status         String      @default("NEW") // NEW, IN_PROGRESS, DONE, CANCELLED
+  companyName    String
+  contactName    String
+  email          String
+  phone          String
+  vatOrCui       String?
+  deliveryAddress String
+  comment        String?
+  consentAccepted Boolean
+  createdAt      DateTime    @default(now())
+  items          OrderItem[]
+}
+
+model OrderItem {
+  id          String   @id @default(cuid())
+  orderId     String
+  productId   String
+  qty         Int
+  priceAtOrder Float
+  order       Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product     Product  @relation(fields: [productId], references: [id])
+  @@unique([orderId, productId])
+}
+
+model ContactRequest {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  message   String
+  createdAt DateTime @default(now())
+}

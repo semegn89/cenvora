@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #fafafa;
+  --foreground: #1a1a1a;
+  --muted: #71717a;
+  --border: #e4e4e7;
+  --primary: #0f766e;
+  --primary-foreground: #fff;
+  --card: #ffffff;
+  --radius: 0.5rem;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Corporate: clean buttons and inputs */
+.btn {
+  @apply inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
+}
+.btn-primary {
+  @apply bg-[var(--primary)] text-[var(--primary-foreground)] hover:opacity-90 focus-visible:ring-[var(--primary)];
+}
+.btn-secondary {
+  @apply border border-[var(--border)] bg-[var(--card)] hover:bg-zinc-100 focus-visible:ring-zinc-400;
+}
+.input {
+  @apply flex h-10 w-full rounded-md border border-[var(--border)] bg-[var(--card)] px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-[var(--muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)] focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50;
+}
+.card {
+  @apply rounded-lg border border-[var(--border)] bg-[var(--card)] p-4 shadow-sm;
+}
