@@ -23,18 +23,16 @@ export function Header({ locale }: { locale: Locale }) {
 
   return (
     <header className="sticky top-0 z-50 border-b border-[var(--border)] bg-[var(--card)]/95 backdrop-blur">
-      <div className="container mx-auto px-4 flex h-16 items-center justify-between gap-4">
-        <Link href={`${prefix}`} className="flex items-center gap-3 font-semibold text-lg shrink-0">
+      <div className="container mx-auto px-4 flex min-h-[5rem] md:min-h-[6rem] items-center justify-between gap-4 py-2">
+        <Link href={`${prefix}`} className="flex items-start sm:items-center shrink-0">
           <Image
             src="/logo.png"
-            alt="CENVORA INTERNATIONAL"
-            width={120}
-            height={48}
-            className="h-10 w-auto object-contain"
+            alt="CENVORA INTERNATIONAL S.R.L."
+            width={360}
+            height={144}
+            className="h-14 sm:h-20 md:h-[7.5rem] w-auto object-contain object-left-top"
             priority
           />
-          <span className="hidden sm:inline text-[var(--foreground)]">CENVORA INTERNATIONAL</span>
-          <span className="sm:hidden text-[var(--foreground)]">CENVORA</span>
         </Link>
         <nav className="hidden md:flex items-center gap-6">
           {nav.map(({ href, labelKey }) => {
