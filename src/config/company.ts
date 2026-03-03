@@ -18,8 +18,8 @@ export const company = {
     country: "România",
   },
   contacts: {
-    email: process.env.NEXT_PUBLIC_COMPANY_EMAIL || "contact@cenvora.ro",
-    phone: process.env.NEXT_PUBLIC_COMPANY_PHONE || "+40 123 456 789",
+    email: process.env.NEXT_PUBLIC_COMPANY_EMAIL || "Orvessagroup@gmail.com",
+    phone: process.env.NEXT_PUBLIC_COMPANY_PHONE || "+40 748 394 758",
   },
   mapEmbedUrl:
     process.env.NEXT_PUBLIC_MAP_EMBED_URL ||
