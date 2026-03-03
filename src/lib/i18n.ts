@@ -57,6 +57,10 @@ export const t = {
       logisticsText: "Documentație comercială și fiscală în regulă, livrări organizate în funcție de acorduri.",
       b2bTitle: "Model B2B",
       b2bText: "Lucrăm exclusiv cu parteneri de afaceri: companii, firme, autorități. Nu vindem la consumator final.",
+      invoiceBankTitle: "Facturare și date bancare",
+      invoiceBankText: "Emitem facturi conforme legislației. Plățile se efectuează în contul nostru bancar.",
+      itServicesTitle: "Servicii IT și consultanță",
+      itServicesText: "Oferim audit de infrastructură IT, configurare rețele și securitate, deploy software, migrare cloud, suport tehnic și consultanță IT pentru întreprinderi.",
     },
     catalog: {
       title: "Catalog",
@@ -178,6 +182,10 @@ export const t = {
       logisticsText: "Proper commercial and tax documentation, organized deliveries as per agreements.",
       b2bTitle: "B2B model",
       b2bText: "We work exclusively with business partners: companies, firms, authorities. We do not sell to end consumers.",
+      invoiceBankTitle: "Invoicing and bank details",
+      invoiceBankText: "We issue invoices in compliance with applicable legislation. Payments are made to our bank account.",
+      itServicesTitle: "IT services and consulting",
+      itServicesText: "We offer IT infrastructure audit, network configuration and security, software deployment, cloud migration, technical support and IT consulting for enterprises.",
     },
     catalog: {
       title: "Catalog",
