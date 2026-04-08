@@ -4,29 +4,35 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 const products: Array<{ sku: string; name: string; descriptionShort: string; category: string; priceFrom: number; unit: string }> = [
-  { sku: "FMCG-001", name: "Ulei alimentar rafinat", descriptionShort: "Ulei vegetal pentru consum, bidon 5L", category: "FMCG", priceFrom: 45, unit: "buc" },
-  { sku: "FMCG-002", name: "Zahăr granulat", descriptionShort: "Zahăr alb, sac 25 kg", category: "FMCG", priceFrom: 1.2, unit: "kg" },
-  { sku: "FMCG-003", name: "Paste făinoase", descriptionShort: "Paste sec, cutie 12 pachete", category: "FMCG", priceFrom: 28, unit: "cutie" },
-  { sku: "FMCG-004", name: "Conserve vegetale", descriptionShort: "Mix conserve, palet 96 buc", category: "FMCG", priceFrom: 120, unit: "palet" },
-  { sku: "IND-001", name: "Echipament de protecție", descriptionShort: "Măști, mănuși, loturi corporate", category: "IndustrialSupplies", priceFrom: 350, unit: "lot" },
-  { sku: "IND-002", name: "Unelte industriale", descriptionShort: "Set unelte profesionale", category: "IndustrialSupplies", priceFrom: 180, unit: "set" },
-  { sku: "IND-003", name: "Materiale de construcții", descriptionShort: "Cherestea, placi, accesorii", category: "IndustrialSupplies", priceFrom: 0.8, unit: "kg" },
-  { sku: "PKG-001", name: "Cutii carton ondulat", descriptionShort: "Cutii diverse dimensiuni, lot 100", category: "Packaging", priceFrom: 85, unit: "lot" },
-  { sku: "PKG-002", name: "Folie stretch", descriptionShort: "Rol 500m, pentru paletizare", category: "Packaging", priceFrom: 22, unit: "rol" },
-  { sku: "PKG-003", name: "Bande adezive", descriptionShort: "Bande ambalaj 66m", category: "Packaging", priceFrom: 3.5, unit: "buc" },
-  { sku: "OTH-001", name: "Produse de curățenie", descriptionShort: "Detergenți profesionali, bidon 10L", category: "Other", priceFrom: 55, unit: "buc" },
-  { sku: "OTH-002", name: "Hârtie A4", descriptionShort: "Resma 500 foi, 80g/m²", category: "Other", priceFrom: 18, unit: "resma" },
+  // ── Spare Parts ───────────────────────────────────────────────────────────
+  { sku: "SP-001", name: "Rulmenți industriali", descriptionShort: "Rulmenți cu bile și role, diverse dimensiuni, oțel aliat", category: "SpareParts", priceFrom: 12, unit: "buc" },
+  { sku: "SP-002", name: "Garnituri și etanșări", descriptionShort: "Seturi garnituri cauciuc/silicon pentru utilaje industriale", category: "SpareParts", priceFrom: 8, unit: "set" },
+  { sku: "SP-003", name: "Filtre hidraulice", descriptionShort: "Filtre pentru sisteme hidraulice, presiune max 250 bar", category: "SpareParts", priceFrom: 45, unit: "buc" },
+  { sku: "SP-004", name: "Curele de transmisie", descriptionShort: "Curele trapezoidale și plate pentru utilaje, diverse profile", category: "SpareParts", priceFrom: 18, unit: "buc" },
+  // ── Equipment ─────────────────────────────────────────────────────────────
+  { sku: "EQ-001", name: "Pompe centrifugale", descriptionShort: "Pompe pentru lichide industriale, debit 5–50 m³/h", category: "Equipment", priceFrom: 850, unit: "buc" },
+  { sku: "EQ-002", name: "Compresoare de aer", descriptionShort: "Compresoare cu șurub 5.5–22 kW, cu recipient integrat", category: "Equipment", priceFrom: 1200, unit: "buc" },
+  { sku: "EQ-003", name: "Motoare electrice", descriptionShort: "Motoare trifazate IE2/IE3, 0.75–30 kW, IP55", category: "Equipment", priceFrom: 320, unit: "buc" },
+  { sku: "EQ-004", name: "Generatoare diesel", descriptionShort: "Grupuri electrogene 10–100 kVA, pornire automată", category: "Equipment", priceFrom: 3500, unit: "buc" },
+  // ── Production Materials ──────────────────────────────────────────────────
+  { sku: "PM-001", name: "Tablă oțel laminat", descriptionShort: "Tablă laminată la rece/cald, grosimi 1–10 mm, foi 1500×3000", category: "ProductionMaterials", priceFrom: 2.8, unit: "kg" },
+  { sku: "PM-002", name: "Profile aluminiu", descriptionShort: "Profile industriale aluminiu, bare 6 m, diverse secțiuni", category: "ProductionMaterials", priceFrom: 6.5, unit: "kg" },
+  { sku: "PM-003", name: "Materiale abrazive", descriptionShort: "Discuri, benzi și pânze abrazive pentru prelucrare metale", category: "ProductionMaterials", priceFrom: 3.2, unit: "buc" },
+  { sku: "PM-004", name: "Lubrifianți industriali", descriptionShort: "Uleiuri hidraulice, de transmisie și de ungere, ISO VG 32–220", category: "ProductionMaterials", priceFrom: 4.5, unit: "L" },
 ];
 
 async function main() {
+  // Dezactivează produsele vechi (food/FMCG etc.)
+  await prisma.product.updateMany({ data: { isActive: false } });
+
   for (const p of products) {
     await prisma.product.upsert({
       where: { sku: p.sku },
-      update: {},
-      create: p,
+      update: { ...p, isActive: true },
+      create: { ...p, isActive: true },
     });
   }
-  console.log("Seed: 12 products created/updated.");
+  console.log("Seed: 12 industrial products created/updated.");
 }
 
 main()

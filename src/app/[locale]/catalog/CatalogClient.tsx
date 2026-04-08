@@ -20,9 +20,9 @@ type Product = {
 
 const categories: { value: string; labelRo: string; labelEn: string }[] = [
   { value: "", labelRo: "Toate", labelEn: "All" },
-  { value: "FMCG", labelRo: "FMCG", labelEn: "FMCG" },
-  { value: "IndustrialSupplies", labelRo: "Industrial", labelEn: "Industrial" },
-  { value: "Packaging", labelRo: "Ambalaje", labelEn: "Packaging" },
+  { value: "SpareParts", labelRo: "Piese de schimb", labelEn: "Spare Parts" },
+  { value: "Equipment", labelRo: "Echipamente", labelEn: "Equipment" },
+  { value: "ProductionMaterials", labelRo: "Materiale producție", labelEn: "Production Materials" },
   { value: "Other", labelRo: "Altele", labelEn: "Other" },
 ];
 
@@ -38,7 +38,7 @@ export function CatalogClient({
   const router = useRouter();
   const { addToCart } = useCart();
   const text = t[locale].catalog;
-  const productImages = images.products;
+  const categoryImages = images.productByCategory;
 
   const handleAdd = (p: Product) => {
     addToCart({
@@ -50,6 +50,13 @@ export function CatalogClient({
       qty: 1,
     });
     router.refresh();
+  };
+
+  const getProductImage = (category: string, index: number) => {
+    const categorySet =
+      categoryImages[category as keyof typeof categoryImages] ?? images.products;
+
+    return categorySet[index % categorySet.length];
   };
 
   return (
@@ -81,7 +88,7 @@ export function CatalogClient({
             <div key={p.id} className="card flex flex-col overflow-hidden p-0">
               <div className="relative h-40 w-full shrink-0">
                 <Image
-                  src={productImages[index % productImages.length]}
+                  src={getProductImage(p.category, index)}
                   alt={p.name}
                   fill
                   className="object-cover"

@@ -4,9 +4,9 @@ import { t } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n";
 
 const categoryMap: Record<string, string> = {
-  FMCG: "FMCG",
-  IndustrialSupplies: "IndustrialSupplies",
-  Packaging: "Packaging",
+  SpareParts: "SpareParts",
+  Equipment: "Equipment",
+  ProductionMaterials: "ProductionMaterials",
   Other: "Other",
 };
 
@@ -56,7 +56,7 @@ export async function generateMetadata({
     title: t[locale].catalog.title,
     description:
       locale === "ro"
-        ? "Catalog produse CENVORA — FMCG, industrial, ambalaje."
-        : "CENVORA product catalog — FMCG, industrial, packaging.",
+        ? "Catalog CENVORA — piese de schimb, echipamente industriale, materiale pentru producție."
+        : "CENVORA catalog — spare parts, industrial equipment, production materials.",
   };
 }
